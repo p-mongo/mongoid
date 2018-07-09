@@ -7,6 +7,10 @@ $LOAD_PATH.unshift(MODELS)
 require "action_controller"
 require "mongoid"
 require "rspec"
+begin
+  require 'byebug'
+rescue LoadError
+end
 
 # These environment variables can be set if wanting to test against a database
 # that is not on the local machine.
