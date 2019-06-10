@@ -14,3 +14,15 @@ class EomChild
   field :a, type: Integer, default: 0
   field :b, type: Integer, default: 0
 end
+
+class EomCcParent
+  include Mongoid::Document
+
+  embeds_one :child, class_name: '::EomCcChild'
+end
+
+class EomCcChild
+  include Mongoid::Document
+
+  embedded_in :parent, class_name: '::EomDcParent'
+end

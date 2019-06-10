@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative './embeds_one_models'
 
 describe Mongoid::Association::Embedded::EmbeddedIn do
 
@@ -314,6 +315,28 @@ describe Mongoid::Association::Embedded::EmbeddedIn do
 
           it 'returns nil' do
             expect(association.inverses).to eq(nil)
+          end
+
+          context 'when class_name is given and is a plain string' do
+            let(:association) do
+              EomParent.relations['child']
+            end
+
+            it 'returns the inverse in an array' do
+              inverses = association.inverses
+              expect(inverses).to eq([:parent])
+            end
+          end
+
+          context 'when class_name is given and is a :: prefixed string' do
+            let(:association) do
+              EomCcParent.relations['child']
+            end
+
+            it 'returns the inverse in an array' do
+              inverses = association.inverses
+              expect(inverses).to eq([:parent])
+            end
           end
         end
       end
