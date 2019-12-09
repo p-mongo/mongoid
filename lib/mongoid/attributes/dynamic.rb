@@ -41,11 +41,9 @@ module Mongoid
       def define_dynamic_reader(name)
         return unless name.valid_method_name?
 
-        class_eval do
-          define_method(name) do
-            attribute_will_change!(name)
-            read_raw_attribute(name)
-          end
+        define_method(name) do
+          attribute_will_change!(name)
+          read_raw_attribute(name)
         end
       end
 
@@ -60,11 +58,9 @@ module Mongoid
       #
       # @since 4.0.0
       def define_dynamic_before_type_cast_reader(name)
-        class_eval do
-          define_method("#{name}_before_type_cast") do
-            attribute_will_change!(name)
-            read_attribute_before_type_cast(name)
-          end
+        define_method("#{name}_before_type_cast") do
+          attribute_will_change!(name)
+          read_attribute_before_type_cast(name)
         end
       end
 
@@ -81,10 +77,8 @@ module Mongoid
       def define_dynamic_writer(name)
         return unless name.valid_method_name?
 
-        class_eval do
-          define_method("#{name}=") do |value|
-            write_attribute(name, value)
-          end
+        define_method("#{name}=") do |value|
+          write_attribute(name, value)
         end
       end
 
