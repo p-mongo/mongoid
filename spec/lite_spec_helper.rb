@@ -14,6 +14,8 @@ require "mongo"
 # https://github.com/jruby/jruby/issues/5599
 require 'pp'
 
+#require 'open-uri'
+
 require 'support/spec_config'
 
 unless SpecConfig.instance.ci?

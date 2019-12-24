@@ -3140,19 +3140,9 @@ describe Mongoid::Association::Referenced::HasMany::Proxy do
       person.posts
     end
 
-    Array.public_instance_methods.each do |method|
+    Array.public_instance_methods.sort.each do |method|
 
-      context "when checking #{method}" do
-
-        it "returns true" do
-          expect(posts.respond_to?(method)).to be true
-        end
-      end
-    end
-
-    Mongoid::Association::Referenced::HasMany::Proxy.public_instance_methods.each do |method|
-
-      context "when checking #{method}" do
+      context "when checking array method #{method}" do
 
         it "returns true" do
           expect(posts.respond_to?(method)).to be true
@@ -3160,9 +3150,19 @@ describe Mongoid::Association::Referenced::HasMany::Proxy do
       end
     end
 
-    Post.scopes.keys.each do |method|
+    Mongoid::Association::Referenced::HasMany::Proxy.public_instance_methods.sort.each do |method|
 
-      context "when checking #{method}" do
+      context "when checking proxy method #{method}" do
+
+        it "returns true" do
+          expect(posts.respond_to?(method)).to be true
+        end
+      end
+    end
+
+    Post.scopes.keys.sort.each do |method|
+
+      context "when checking scope method #{method}" do
 
         it "returns true" do
           expect(posts.respond_to?(method)).to be true

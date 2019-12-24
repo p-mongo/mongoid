@@ -4,6 +4,7 @@ gemspec
 gem 'rake'
 gem 'actionpack'
 gem 'activemodel'
+gem 'paraspec', path: '../paraspec'
 
 # https://jira.mongodb.org/browse/MONGOID-4614
 if RUBY_VERSION < '2.3'

@@ -1,0 +1,10 @@
+concurrency: 4
+env:
+  1:
+    MONGODB_URI: mongodb://localhost:27990
+  2:
+    MONGODB_URI: mongodb://localhost:27991
+  3:
+    MONGODB_URI: mongodb://localhost:27992
+  4:
+    MONGODB_URI: mongodb://localhost:27993
