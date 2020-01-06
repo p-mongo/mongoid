@@ -9,6 +9,7 @@ module Mongoid
   # @since 4.0.0
   module Serializable
     extend ActiveSupport::Concern
+    extend Forwardable
 
     # We need to redefine where the JSON configuration is getting defined,
     # similar to +ActiveRecord+.
