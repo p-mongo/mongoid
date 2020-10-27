@@ -31,21 +31,19 @@ describe "StringifiedSymbol fields" do
     end
   end
 
+  let(:client) { StringifiedSymbol.collection.client }
+
 # Using command monitoring to test that StringifiedSymbol sends a string and returns a symbol
-  before(:all) do
-    CONFIG[:clients][:other] = CONFIG[:clients][:default].dup
-    CONFIG[:clients][:other][:database] = 'other'
-    Mongoid::Clients.clients.values.each(&:close)
-    Mongoid::Config.send(:clients=, CONFIG[:clients])
-    Mongoid::Clients.with_name(:other).subscribe(Mongo::Monitoring::COMMAND, EventSubscriber.new)
+  before do
+    client.subscribe(Mongo::Monitoring::COMMAND, subscriber)
+  end
+
+  after do
+    client.unsubscribe(Mongo::Monitoring::COMMAND, subscriber)
   end
 
   let(:subscriber) do
-    client = Mongoid::Clients.with_name(:other)
-    monitoring = client.send(:monitoring)
-    subscriber = monitoring.subscribers['Command'].find do |s|
-      s.is_a?(EventSubscriber)
-    end
+    EventSubscriber.new
   end
 
   let(:find_events) do
@@ -96,7 +94,6 @@ describe "StringifiedSymbol fields" do
   context "when reading a BSON Symbol field" do
 
     before do
-      client = Mongoid::Clients.with_name(:other)
       client["stringified_symbols"].insert_one(stringified_symbol: BSON::Symbol::Raw.new("test"), _id: 12)
     end
 
