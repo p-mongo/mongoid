@@ -16,3 +16,7 @@ if RUBY_PLATFORM =~ /java/
 end
 
 gem 'i18n', *i18n_versions
+
+#gem 'activestorage', path: '../exp/rails/activestorage'
+gem 'rails', path: '../exp/rails'
+gem 'has_secure_token'

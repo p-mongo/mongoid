@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # encoding: utf-8
 
+require "mongoid/attached"
 require "mongoid/changeable"
 require "mongoid/findable"
 require "mongoid/indexable"
@@ -37,6 +38,7 @@ module Mongoid
     include ActiveModel::ForbiddenAttributesProtection
     include ActiveModel::Serializers::JSON
     include Atomic
+    include Attached::Model
     include Changeable
     include Clients
     include Attributes
