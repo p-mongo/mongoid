@@ -9,6 +9,23 @@ module Mongoid
   module Selectable
     extend ActiveSupport::Concern
 
+    # Get the selector for this document based on the current attribute values.
+    #
+    # The selector may be used to efficiently retrieve the document from
+    # the database. It incorporates the _id value and, if the model has a
+    # shard key defined, the shard key values.
+    #
+    # This method can only be called for top-level documents.
+    #
+    # @return [ Hash ] The document's selector.
+    def current_selector
+      if embedded?
+        raise ArgumentError, 'current_selector is only defined for top-level documents'
+      end
+
+      {'_id' => _id}.update(shard_key_selector)
+    end
+
     # Get the atomic selector for the document. This is a hash in the simplest
     # case { "_id" => id }, but can become more complex for embedded documents
     # and documents that use a shard key.
@@ -19,6 +36,7 @@ module Mongoid
     # @return [ Hash ] The document's selector.
     #
     # @since 1.0.0
+    # @api private
     def atomic_selector
       @atomic_selector ||=
         (embedded? ? embedded_atomic_selector : root_atomic_selector_in_db)
