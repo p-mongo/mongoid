@@ -402,6 +402,12 @@ en:
             knowing which environment it is in, and we have considered
             defaulting to development an undesireable side effect of this not
             being defined."
+        no_id:
+          message: "The document does not have an _id value."
+          summary: "An operation was requested that requires the document
+            to have an _id value, but no value for the _id field was set."
+          resolution: "If you have overridden the _id field type to not
+            set a default value, initialize the _id field manually."
         no_map_reduce_output:
           message: "No output location was specified for the map/reduce
             operation."

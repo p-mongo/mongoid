@@ -23,6 +23,10 @@ module Mongoid
         raise ArgumentError, 'current_selector is only defined for top-level documents'
       end
 
+      if id.nil?
+        raise Errors::NoId
+      end
+
       {'_id' => _id}.update(shard_key_selector)
     end
 
